@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PK Restoration</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #333;
+      background: #f9f9f9;
+    }
+
+    /* === NAVIGATION === */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .logo img {
+      height: 40px;
+      max-width: 150px;
+      object-fit: contain;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a,
+    .nav-links button {
+      color: #1e3d59;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+      transition: background 0.3s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .nav-links a:hover,
+    .nav-links button:hover {
+      background: #f0f0f0;
+      border-radius: 4px;
+    }
+    .nav-links button img {
+      width: 20px;
+      height: auto;
+    }
+    .nav-links button {
+      padding: 5px;
+      border-radius: 50%;
+    }
+
+    /* === HEADER === */
+    header {
+      position: relative;
+      background: url("images/back_pk.jpg") no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 140px 20px 120px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    header * {
+      position: relative;
+      z-index: 2;
+    }
+    header h1 {
+      font-size: 48px;
+      margin: 0;
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 12px;
+    }
+    header h1 .highlight {
+      color: red;
+      font-weight: bold;
+    }
+    header p {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    /* === ABOUT === */
+    .about-container {
+      display: flex;
+      flex-direction: row; 
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: nowrap;
+    }
+    .about-text {
+      flex: 1 1 60%;
+      min-width: 300px;
+    }
+    .about-image {
+      flex: 1 1 40%;
+      text-align: right;
+    }
+    .about-image img {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    /* === SERVICES === */
+    section {
+      padding: 50px 20px;
+      max-width: 1100px;
+      margin: auto;
+      animation: fadeUp 1s ease-in-out;
+    }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .service {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .service:hover {
+      transform: translateY(-5px);
+    }
+    .service img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* === PORTFOLIO === */
+    .portfolio img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      transition: transform 0.3s;
+    }
+    .portfolio img:hover {
+      transform: scale(1.05);
+    }
+
+    /* === TESTIMONIALS === */
+    .testimonials-wrapper {
+      position: relative;
+      max-width: 800px;
+      margin: auto;
+      overflow: hidden;
+      text-align: center;
+    }
+    .testimonial {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .testimonial img.avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    .testimonial p {
+      font-style: italic;
+    }
+    .testimonial .stars {
+      color: gold;
+      margin: 8px 0;
+    }
+    .testimonial strong {
+      display: block;
+      margin-top: 5px;
+      color: #1e3d59;
+    }
+    .test-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #1e3d59;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .test-arrow.left { left: -40px; }
+    .test-arrow.right { right: -40px; }
+    .dots {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .dots button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      background: #ccc;
+      cursor: pointer;
+    }
+    .dots button.active {
+      background: #1e3d59;
+    }
+
+    /* === FORM === */
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+      margin: auto;
+    }
+    form input, form textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    form button {
+      background: #1e3d59;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    form button:hover {
+      background: #163046;
+    }
+
+.projects-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.project-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.project-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.project-images img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .projects-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+    /* === CTA === */
+    .cta {
+      margin-top: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .cta .btn {
+      background: #ffd700;
+      color: #1e3d59;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s;
+      display: inline-block;
+    }
+    .cta .btn:hover {
+      background: #e6c200;
+    }
+    .cta .btn.alt {
+      background: transparent;
+      border: 2px solid #ffd700;
+      color: #ffd700;
+    }
+    .cta .btn.alt:hover {
+      background: #ffd700;
+      color: #1e3d59;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: #1e3d59;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    footer a {
+      color: #ffd700;
+      text-decoration: none;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes fadeUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 32px;
+      }
+      header p {
+        font-size: 16px;
+      }
+      .about-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        text-align: center;
+      }
+      .about-image {
+        text-align: center;
+      }
+      .about-image img {
+        max-width: 90%;
+      }
+      .test-arrow.left { left: 10px; }
+      .test-arrow.right { right: 10px; }
+    }
+  </style>
+
+  <script>
+    function switchLang(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.style.display = el.getAttribute('data-lang') === lang ? 'block' : 'none';
+      });
+    }
+    document.addEventListener("DOMContentLoaded", () => { switchLang('en'); });
+
+    // TESTIMONIAL SLIDER
+    document.addEventListener("DOMContentLoaded", () => {
+      let testimonials = document.querySelectorAll("#testimonials .testimonial");
+      let dotsContainer = document.getElementById("testimonialDots");
+      let current = 0;
+
+      // Tworzymy kropki
+      testimonials.forEach((_, i) => {
+        let dot = document.createElement("button");
+        dot.addEventListener("click", () => showTestimonial(i));
+        dotsContainer.appendChild(dot);
+      });
+      let dots = dotsContainer.querySelectorAll("button");
+
+      function showTestimonial(index) {
+        testimonials.forEach((t, i) => {
+          t.style.display = i === index ? "block" : "none";
+          dots[i].classList.toggle("active", i === index);
+        });
+        current = index;
+      }
+
+      function next() {
+        let nextIndex = (current + 1) % testimonials.length;
+        showTestimonial(nextIndex);
+      }
+      function prev() {
+        let prevIndex = (current - 1 + testimonials.length) % testimonials.length;
+        showTestimonial(prevIndex);
+      }
+
+      document.querySelector(".test-arrow.left").addEventListener("click", prev);
+      document.querySelector(".test-arrow.right").addEventListener("click", next);
+
+      setInterval(next, 5000);
+      showTestimonial(0);
+    });
+  </script>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">
+      <a href="#">
+        <img src="images/LOGO2_1.jpg" alt="PK Restoration Logo">
+      </a>
+    </div>
+    <div class="nav-links">
+      <a href="#about" data-lang="en">About Us</a>
+      <a href="#about" data-lang="pl">O nas</a>
+      <a href="#services" data-lang="en">Services</a>
+      <a href="#services" data-lang="pl">Usługi</a>
+      <a href="#testimonials" data-lang="en">Testimonials</a>
+      <a href="#testimonials" data-lang="pl">Opinie</a>
+      <a href="#projects" data-lang="en">Projects</a>
+      <a href="#projects" data-lang="pl">Realizacje</a>
+      <a href="#contact" data-lang="en">Contact</a>
+      <a href="#contact" data-lang="pl">Kontakt</a>
+      <button onclick="switchLang('pl')"><img src='https://flagcdn.com/w20/pl.png' alt='Polski'></button>
+      <button onclick="switchLang('en')"><img src='https://flagcdn.com/w20/us.png' alt='English'></button>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header>
+    <p data-lang="pl">Ponad 5 lat doświadczenia w kompleksowych remontach mieszkań i apartamentów na Florydzie</p>
+    <p data-lang="en" style="display:none;">Over 5 years of experience in complete home and apartment renovations in Florida</p>
+    <h1><span class="highlight">PK</span> Restoration</h1>
+    <p data-lang="pl">Od koncepcji do wykończenia – tworzymy przestrzenie, w których chce się żyć.</p>
+    <p data-lang="en" style="display:none;">From concept to completion – we create spaces you’ll love to live in.</p>
+    <div class="cta">
+      <a class="btn" href="#contact" data-lang="pl">Umów darmową wycenę</a>
+      <a class="btn" href="#contact" data-lang="en" style="display:none;">Get a Free Quote</a>
+      <a class="btn alt" href="#projects" data-lang="pl">Zobacz realizacje</a>
+      <a class="btn alt" href="#projects" data-lang="en" style="display:none;">See projects</a>
+    </div>
+  </header>
+
+ <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-title">
+    <h2 id="about-title" class="section-title" data-lang="pl">O nas</h2>
+    <h2 id="about-title-en" class="section-title" data-lang="en" style="display:none">About Us</h2>
+
+    <div class="about-container">
+      <div class="about-text">
+        <p data-lang="pl">
+          Od ponad pięciu lat z pasją i pełnym zaangażowaniem realizujemy remonty i modernizacje wnętrz w regionie Tampa Bay. Obsługujemy klientów w St. Petersburgu, Clearwater, Palm Harbor oraz New Port Richey, oferując kompleksowe usługi zarówno dla osób prywatnych, jak i firm.
+        </p>
+        <p data-lang="pl">
+          Specjalizujemy się w pełnym zakresie prac remontowych – od nowoczesnych kuchni i komfortowych łazienek, przez montaż i renowację podłóg, aż po generalne wykończenia całych domów i mieszkań. Nasze bogate doświadczenie i dziesiątki zrealizowanych projektów sprawiają, że potrafimy stworzyć wnętrza dopasowane do indywidualnych potrzeb i stylu życia naszych klientów.
+        </p>
+        <p data-lang="pl">
+          Jakość i rzetelność to nasze priorytety. Każdy projekt realizujemy terminowo, z poszanowaniem budżetu i dbałością o każdy detal. Korzystamy z nowoczesnych technologii i sprawdzonych materiałów, aby efekt końcowy był estetyczny, funkcjonalny i trwały.
+        </p>
+        <p data-lang="pl">
+          Wierzymy, że dobrze wykonany remont to inwestycja w komfort codziennego życia. Dlatego oferujemy pełne wsparcie na każdym etapie – od pierwszego spotkania i darmowej wyceny, poprzez doradztwo materiałowe, aż po staranne wykończenie.
+        </p>
+        <p data-lang="pl">
+          Jeśli szukasz sprawdzonego partnera do realizacji remontu w Tampa Bay, jesteśmy gotowi pomóc Ci stworzyć przestrzeń, w której będziesz czuć się naprawdę jak w domu.
+        </p>
+
+        <!-- EN -->
+        <p data-lang="en" style="display:none">
+          For over five years, we have been carrying out interior renovations and modernizations across the Tampa Bay area with passion and dedication. We serve clients in St. Petersburg, Clearwater, Palm Harbor, and New Port Richey, offering comprehensive services for both private homeowners and businesses.
+        </p>
+        <p data-lang="en" style="display:none">
+          We specialize in a full range of renovation works – from modern kitchens and comfortable bathrooms, through flooring installation and restoration, to complete home and apartment remodels. With our experience and dozens of completed projects, we know how to create interiors tailored to the individual needs and lifestyle of our clients.
+        </p>
+        <p data-lang="en" style="display:none">
+          Quality and reliability are our priorities. Every project is completed on time, within budget, and with attention to every detail. We use modern technologies and proven materials to ensure that the final result is not only beautiful, but also functional and durable.
+        </p>
+        <p data-lang="en" style="display:none">
+          We believe that a well-done renovation is an investment in everyday comfort. That’s why we provide full support at every stage – from the first meeting and free quote, through material consultation, to the final finishing touches.
+        </p>
+        <p data-lang="en" style="display:none">
+          If you are looking for a reliable partner for your renovation project in Tampa Bay, we are ready to help you create a space that truly feels like home.
+        </p>
+      </div>
+
+      <div class="about-image">
+        <img src="images/0003.jpg" alt="PK Restoration team at work">
+      </div>
+    </div>
+  </section>
+
+
+<!-- SERVICES -->
+  <section id="services">
+    <h2 data-lang="pl">Nasze usługi</h2>
+    <h2 data-lang="en" style="display:none">Our Services</h2>
+    <div class="services">
+      <div class="service"><img src="images/maintenance.png" alt="Remodel"><h3 data-lang="pl">Remonty</h3><h3 data-lang="en" style="display:none">Remodeling</h3></div>
+      <div class="service"><img src="images/kitchen.png" alt="Kitchen"><h3 data-lang="pl">Kuchnie</h3><h3 data-lang="en" style="display:none">Kitchens</h3></div>
+      <div class="service"><img src="images/bath.png" alt="Bathroom"><h3 data-lang="pl">Łazienki</h3><h3 data-lang="en" style="display:none">Bathrooms</h3></div>
+      <div class="service"><img src="images/floor-plan.png" alt="Floors"><h3 data-lang="pl">Podłogi</h3><h3 data-lang="en" style="display:none">Floors</h3></div>
+      <div class="service"><img src="images/paint.png" alt="Painting"><h3 data-lang="pl">Malowanie</h3><h3 data-lang="en" style="display:none">Painting</h3></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <h2 data-lang="en">Testimonials</h2>
+    <h2 data-lang="pl">Opinie klientów</h2>
+    <div class="testimonials-wrapper" aria-live="polite">
+      <div class="testimonial" data-lang="pl">
+        <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Anna K.">
+        <p>"Great cooperation from start to finish. The kitchen looks fantastic!"</p>
+        <div class="stars">★★★★★</div>
+        <strong>Anna K.</strong>
+      </div>
+      <div class="testimonial" data-lang="pl">
+        <img class="avatar" src="https://randomuser.me/api/portraits/men/46.jpg" alt="Michał P.">
+        <p>"On time, solid work, and great attention to detail."</p>
+        <div class="stars">★★★★★</div>
+        <strong>Michael P.</strong>
+      </div>
+      <!-- Możesz dodać kolejne PL i EN opinie -->
+      <div class="testimonial" data-lang="en" style="display:none">
+        <img class="avatar" src="https://randomuser.me/api/portraits/men/28.jpg" alt="John">
+        <p>"Great cooperation from start to finish. The kitchen looks fantastic!"</p>
+        <div class="stars">★★★★★</div>
+        <strong>John D.</strong>
+      </div>
+    </div>
+    <button class="test-arrow left" aria-label="Poprzednia opinia">&#10094;</button>
+    <button class="test-arrow right" aria-label="Następna opinia">&#10095;</button>
+    <div class="dots" id="testimonialDots"></div>
+  </section>
+
+  <!-- PORTFOLIO -->
+<section id="projects">
+  <h2 data-lang="pl">Nasze realizacje</h2>
+  <h2 data-lang="en" style="display:none">Our Projects</h2>
+
+  <div class="projects-gallery">
+
+    <!-- Projekt 1 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="images/16_Image_0002.jpg" alt="Projekt 1 - zdjęcie 1">
+        <img src="images/16_Image_0003.jpg" alt="Projekt 1 - zdjęcie 2">
+        <img src="images/17_Image_0002.jpg" alt="Projekt 1 - zdjęcie 3">
+        <img src="images/17_Image_0003.jpg" alt="Projekt 1 - zdjęcie 3">
+        <img src="images/18_Image_0002.jpg" alt="Projekt 1 - zdjęcie 3">
+      </div>
+    </div>
+
+    <!-- Projekt 2 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="images/10_Image_0002.jpg" alt="Projekt 2 - zdjęcie 1">
+        <img src="images/10_Image_0003.jpg" alt="Projekt 2 - zdjęcie 2">
+        <img src="images/11_Image_0002.jpg" alt="Projekt 2 - zdjęcie 3">
+        <img src="images/11_Image_0003.jpg" alt="Projekt 2 - zdjęcie 2">
+        <img src="images/12_Image_0002.jpg" alt="Projekt 2 - zdjęcie 3">
+      </div>
+    </div>
+
+   <!-- Projekt 3 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="images/11.jpg" alt="Projekt 1 - zdjęcie 1">
+        <img src="images/12.jpg" alt="Projekt 1 - zdjęcie 2">
+            </div>
+    </div>
+
+    <!-- Projekt 4 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="images/13.jpg" alt="Projekt 2 - zdjęcie 1">
+        <img src="images/14.jpg" alt="Projekt 2 - zdjęcie 2">
+        <img src="images/15.jpg" alt="Projekt 2 - zdjęcie 3">
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+ <!-- CONTACT -->
+<section id="contact">
+  <h2 data-lang="pl">Skontaktuj się z nami</h2>
+  <h2 data-lang="en" style="display:none">Contact Us</h2>
+
+  <form id="contact-form">
+    <label>
+      <span data-lang="pl">Imię i nazwisko:</span>
+      <span data-lang="en" style="display:none">Full Name:</span>
+      <input type="text" name="from_name" required>
+    </label>
+
+    <label>
+      <span>Email:</span>
+      <input type="email" name="reply_to" required>
+    </label>
+
+    <label>
+      <span data-lang="pl">Wiadomość:</span>
+      <span data-lang="en" style="display:none">Message:</span>
+      <textarea name="message" rows="5" required></textarea>
+    </label>
+
+    <button type="submit" data-lang="pl">Wyślij</button>
+    <button type="submit" data-lang="en" style="display:none">Send</button>
+  </form>
+
+  <!-- Komunikat -->
+  <p id="form-message" style="display:none; margin-top:10px;"></p>
+</section>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("UJZn1QkJeDqKZ275_"); // Twój Public Key
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm("service_1bvmvpl", "template_qgv3zeg", this)
+      .then(() => {
+        const msg = document.getElementById("form-message");
+        msg.style.display = "block";
+        msg.style.color = "green";
+        msg.innerText =
+          document.querySelector('[data-lang="pl"]').style.display !== "none"
+            ? "Dziękujemy! Wiadomość została wysłana."
+            : "Thank you! Your message has been sent.";
+        this.reset();
+      }, (error) => {
+        const msg = document.getElementById("form-message");
+        msg.style.display = "block";
+        msg.style.color = "red";
+        msg.innerText = "Błąd wysyłania: " + error.text;
+      });
+  });
+</script>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2021-2025 PK Restoration | <a href="#privacy" data-lang="pl">Polityka prywatności</a><a href="#privacy" data-lang="en" style="display:none">Privacy Policy</a></p>
+  </footer>
+</body>
+</html>
