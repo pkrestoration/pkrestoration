@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PK Restoration</title>
-  <style>
+  <title>PK Restoration - Remodeling & Renovation in Tampa Bay</title>
+
+  <!-- SEO META -->
+  <meta name="description" content="PK Restoration provides professional home remodeling and renovation services in Tampa Bay. Kitchens, bathrooms, flooring, painting, drywall and more. Free estimates.">
+  <meta name="keywords" content="remodeling Tampa Bay, renovation Florida, PK Restoration, kitchen remodeling, bathroom remodeling, flooring, painting, drywall, Clearwater, St. Petersburg, Palm Harbor, New Port Richey">
+  <meta name="author" content="PK Restoration">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="en">
+
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:title" content="PK Restoration - Remodeling & Renovation in Tampa Bay">
+  <meta property="og:description" content="Professional remodeling and renovation services across Tampa Bay. Kitchens, bathrooms, flooring, painting, drywall and more. Free estimates.">
+  <meta property="og:image" content="https://pkrestoration.github.io/pkrestoration/images/back_pk.jpg">
+  <meta property="og:url" content="https://pkrestoration.github.io/pkrestoration/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PK Restoration - Remodeling & Renovation in Tampa Bay">
+  <meta name="twitter:description" content="Professional remodeling and renovation services across Tampa Bay. Kitchens, bathrooms, flooring, painting, drywall and more. Free estimates.">
+  <meta name="twitter:image" content="https://pkrestoration.github.io/pkrestoration/images/back_pk.jpg">
+
+
+ <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -294,7 +316,45 @@
   }
 }
 
-    /* === CTA === */
+/* === Lightbox styles === */
+#lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 2500;
+  justify-content: center;
+  align-items: center;
+}
+#lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.08);
+}
+#lightbox .close, #lightbox .prev, #lightbox .next {
+  position: absolute;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  user-select: none;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 50%;
+  border: none;
+}
+#lightbox .close { top: 20px; right: 30px; transform: none; font-size: 34px; }
+#lightbox .prev { left: 30px; top: 50%; transform: translateY(-50%); }
+#lightbox .next { right: 30px; top: 50%; transform: translateY(-50%); }
+#lightbox .close:hover, #lightbox .prev:hover, #lightbox .next:hover {
+  background: rgba(255,215,0,0.95);
+  color: #1e3d59;
+}
+
+/* === CTA === */
     .cta {
       margin-top: 25px;
       display: flex;
@@ -524,31 +584,31 @@
     <h2 data-lang="pl">Opinie klientów</h2>
     <div class="testimonials-wrapper" aria-live="polite">
       <div class="testimonial" data-lang="pl">
-        <img class="avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Anna K.">
+        <img class="avatar" src="images/44.jpg" alt="Anna K.">
         <p>"Great cooperation from start to finish. The kitchen looks fantastic!"</p>
         <div class="stars">★★★★★</div>
         <strong>Anna K.</strong>
       </div>
       <div class="testimonial" data-lang="pl">
-        <img class="avatar" src="https://randomuser.me/api/portraits/men/46.jpg" alt="Michał P.">
+        <img class="avatar" src="images/46.jpg" alt="Michał P.">
         <p>"On time, solid work, and great attention to detail."</p>
         <div class="stars">★★★★★</div>
         <strong>Michael P.</strong>
       </div>
       <!-- Możesz dodać kolejne PL i EN opinie -->
       <div class="testimonial" data-lang="en" style="display:none">
-        <img class="avatar" src="https://randomuser.me/api/portraits/men/28.jpg" alt="John">
+        <img class="avatar" src="images/28.jpg" alt="John">
         <p>"Great cooperation from start to finish. The kitchen looks fantastic!"</p>
         <div class="stars">★★★★★</div>
         <strong>John D.</strong>
       </div>
     </div>
-    <button class="test-arrow left" aria-label="Poprzednia opinia">&#10094;</button>
-    <button class="test-arrow right" aria-label="Następna opinia">&#10095;</button>
+    <button class="test-arrow left" aria-label="Back">&#10094;</button>
+    <button class="test-arrow right" aria-label="Next">&#10095;</button>
     <div class="dots" id="testimonialDots"></div>
   </section>
 
-  <!-- PORTFOLIO -->
+  <!-- PROJECTS (REPLACED WITH LIGHTBOX) -->
 <section id="projects">
   <h2 data-lang="pl">Nasze realizacje</h2>
   <h2 data-lang="en" style="display:none">Our Projects</h2>
@@ -558,43 +618,77 @@
     <!-- Projekt 1 -->
     <div class="project">
       <div class="project-images">
-        <img src="images/16_Image_0002.jpg" alt="Projekt 1 - zdjęcie 1">
-        <img src="images/16_Image_0003.jpg" alt="Projekt 1 - zdjęcie 2">
-        <img src="images/17_Image_0002.jpg" alt="Projekt 1 - zdjęcie 3">
-        <img src="images/17_Image_0003.jpg" alt="Projekt 1 - zdjęcie 3">
-        <img src="images/18_Image_0002.jpg" alt="Projekt 1 - zdjęcie 3">
+        <img src="images/project1_01.jpeg" alt="Projekt 1 - 1">
+        <img src="images/project1_02.jpeg" alt="Projekt 1 - 2">
+        <img src="images/project1_03.jpeg" alt="Projekt 1 - 3">
+        <img src="images/project1_04.jpeg" alt="Projekt 1 - 4">
+        <img src="images/project1_05.jpeg" alt="Projekt 1 - 5">
+        <img src="images/project1_06.jpeg" alt="Projekt 1 - 6">
       </div>
     </div>
 
     <!-- Projekt 2 -->
     <div class="project">
       <div class="project-images">
-        <img src="images/10_Image_0002.jpg" alt="Projekt 2 - zdjęcie 1">
-        <img src="images/10_Image_0003.jpg" alt="Projekt 2 - zdjęcie 2">
-        <img src="images/11_Image_0002.jpg" alt="Projekt 2 - zdjęcie 3">
-        <img src="images/11_Image_0003.jpg" alt="Projekt 2 - zdjęcie 2">
-        <img src="images/12_Image_0002.jpg" alt="Projekt 2 - zdjęcie 3">
+        <img src="images/project2_01.jpeg" alt="Projekt 2 - 1">
+        <img src="images/project2_02.jpeg" alt="Projekt 2 - 2">
+        <img src="images/project2_03.jpeg" alt="Projekt 2 - 3">
+        <img src="images/project2_04.jpeg" alt="Projekt 2 - 4">
+        <img src="images/project2_05.jpeg" alt="Projekt 2 - 5">
       </div>
     </div>
 
    <!-- Projekt 3 -->
     <div class="project">
       <div class="project-images">
-        <img src="images/11.jpg" alt="Projekt 1 - zdjęcie 1">
-        <img src="images/12.jpg" alt="Projekt 1 - zdjęcie 2">
-            </div>
-    </div>
-
-    <!-- Projekt 4 -->
-    <div class="project">
-      <div class="project-images">
-        <img src="images/13.jpg" alt="Projekt 2 - zdjęcie 1">
-        <img src="images/14.jpg" alt="Projekt 2 - zdjęcie 2">
-        <img src="images/15.jpg" alt="Projekt 2 - zdjęcie 3">
+        <img src="images/project3_01.jpeg" alt="Projekt 3 - 1">
+        <img src="images/project3_02.jpeg" alt="Projekt 3 - 2">
+        <img src="images/project3_03.jpeg" alt="Projekt 3 - 3">
+        <img src="images/project3_04.jpeg" alt="Projekt 3 - 4">
+        <img src="images/project3_05.jpeg" alt="Projekt 3 - 5">
+        <img src="images/project3_06.jpeg" alt="Projekt 3 - 6">
+        <img src="images/project3_07.jpeg" alt="Projekt 3 - 7">
       </div>
     </div>
 
 
+    <!-- Projekt 4 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="images/project4_01.jpeg" alt="Projekt 4 - 1">
+        <img src="images/project4_02.jpeg" alt="Projekt 4 - 2">
+        <img src="images/project4_03.jpeg" alt="Projekt 4 - 3">
+        <img src="images/project4_04.jpeg" alt="Projekt 4 - 4">
+        <img src="images/project4_05.jpeg" alt="Projekt 4 - 5">
+        <img src="images/project4_06.jpeg" alt="Projekt 4 - 6">
+      </div>
+    </div>
+
+   <!-- Projekt 5 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="images/project5_01.jpeg" alt="Projekt 5 - 1">
+        <img src="images/project5_02.jpeg" alt="Projekt 5 - 2">
+        <img src="images/project5_03.jpeg" alt="Projekt 5 - 3">
+        <img src="images/project5_04.jpeg" alt="Projekt 5 - 4">
+        <img src="images/project5_05.jpeg" alt="Projekt 5 - 5">
+        <img src="images/project5_06.jpeg" alt="Projekt 5 - 6">
+        <img src="images/project5_07.jpeg" alt="Projekt 5 - 7">
+        <img src="images/project5_08.jpeg" alt="Projekt 5 - 8">
+      </div>
+    </div>
+
+   <!-- Projekt 6 -->
+    <div class="project">
+      <div class="project-images">
+        <img src="images/project6_01.jpeg" alt="Projekt 6 - 1">
+        <img src="images/project6_02.jpeg" alt="Projekt 6 - 2">
+        <img src="images/project6_03.jpeg" alt="Projekt 6 - 3">
+        <img src="images/project6_04.jpeg" alt="Projekt 6 - 4">
+        <img src="images/project6_05.jpeg" alt="Projekt 6 - 5">
+        <img src="images/project6_06.jpeg" alt="Projekt 6 - 6">
+      </div>
+    </div>
 
   </div>
 </section>
@@ -654,10 +748,114 @@
         const msg = document.getElementById("form-message");
         msg.style.display = "block";
         msg.style.color = "red";
-        msg.innerText = "Błąd wysyłania: " + error.text;
+        msg.innerText = "Błąd wysyłania: " + (error.text || error);
       });
   });
 </script>
+
+<!-- Lightbox container (created/used by script below) -->
+<!-- Script to initialize lightbox and keyboard controls -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Collect all images inside project-images
+    const images = Array.from(document.querySelectorAll(".project-images img"));
+    if (!images.length) return; // nothing to do
+
+    // Create lightbox element
+    const lightbox = document.createElement("div");
+    lightbox.id = "lightbox";
+    lightbox.setAttribute("aria-hidden", "true");
+    lightbox.style.display = "none";
+    lightbox.innerHTML = `
+      <button class="close" aria-label="Close lightbox">&times;</button>
+      <button class="prev" aria-label="Previous image">&#10094;</button>
+      <img id="lightbox-img" alt="">
+      <button class="next" aria-label="Next image">&#10095;</button>
+    `;
+    document.body.appendChild(lightbox);
+
+    const lbImg = lightbox.querySelector("#lightbox-img");
+    const btnClose = lightbox.querySelector(".close");
+    const btnPrev = lightbox.querySelector(".prev");
+    const btnNext = lightbox.querySelector(".next");
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lbImg.src = images[currentIndex].src;
+      lbImg.alt = images[currentIndex].alt || "";
+      lightbox.style.display = "flex";
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden"; // prevent background scroll
+      // focus for accessibility
+      btnClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = "none";
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % images.length;
+      lbImg.src = images[currentIndex].src;
+      lbImg.alt = images[currentIndex].alt || "";
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      lbImg.src = images[currentIndex].src;
+      lbImg.alt = images[currentIndex].alt || "";
+    }
+
+    // Click image to open
+    images.forEach((img, i) => {
+      img.style.cursor = "zoom-in";
+      img.addEventListener("click", () => openLightbox(i));
+      img.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") openLightbox(i);
+      });
+      img.setAttribute("tabindex", "0");
+    });
+
+    // Controls
+    btnClose.addEventListener("click", closeLightbox);
+    btnNext.addEventListener("click", showNext);
+    btnPrev.addEventListener("click", showPrev);
+
+    // Close when clicking backdrop (but not on image or controls)
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard support: ESC to close, arrows to navigate
+    document.addEventListener("keydown", (e) => {
+      if (lightbox.style.display !== "flex") return;
+      if (e.key === "Escape") {
+        closeLightbox();
+      } else if (e.key === "ArrowRight") {
+        showNext();
+      } else if (e.key === "ArrowLeft") {
+        showPrev();
+      }
+    });
+  });
+</script>
+
+<section id="contact">
+    <div class="contact-info">
+      <p><strong>Phone:</strong> <a href="tel:7276032892">(727) 603-2892</a></p>
+      <p><strong>Email:</strong> <a href="mailto:pkrestoration2021@gmail.com">pkrestoration2021@gmail.com</a></p>
+      <p><strong>Location:</strong> Palm Harbor, Florida</p>
+      <p><strong>Facebook:</strong> 
+        <a href="https://www.facebook.com/pkrestoration" target="_blank">
+          facebook.com/pkrestoration
+        </a>
+      </p>
+    </div>
+  </div>
+</section>
 
   <!-- FOOTER -->
   <footer>
